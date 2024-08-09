@@ -1,0 +1,233 @@
+openapi: 3.0.3
+info:
+  title: Song and Album API
+  description: API for managing songs and albums
+  version: 1.0.0
+paths:
+  /api/song/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get a song by ID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  song_id:
+                    type: integer
+                  title:
+                    type: string
+                  artist:
+                    type: string
+                  lyrics:
+                    type: string
+                  release_date:
+                    type: string
+        '404':
+          description: Song not found
+    put:
+      summary: Update a song by ID
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                artist:
+                  type: string
+                lyrics:
+                  type: string
+                release_date:
+                  type: string
+      responses:
+        '200':
+          description: Song updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  song_id:
+                    type: integer
+                  title:
+                    type: string
+                  artist:
+                    type: string
+                  lyrics:
+                    type: string
+                  release_date:
+                    type: string
+        '400':
+          description: Insufficient data provided
+        '404':
+          description: Song not found
+    delete:
+      summary: Delete a song by ID
+      responses:
+        '200':
+          description: Song deleted successfully
+        '404':
+          description: Song not found
+  /api/song:
+    post:
+      summary: Create a new song
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                artist:
+                  type: string
+                lyrics:
+                  type: string
+                release_date:
+                  type: string
+                user_id:
+                  type: string
+                album_id:
+                  type: string
+      responses:
+        '201':
+          description: Song created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  song_id:
+                    type: integer
+                  title:
+                    type: string
+                  artist:
+                    type: string
+                  lyrics:
+                    type: string
+                  release_date:
+                    type: string
+        '400':
+          description: Insufficient data provided
+        '409':
+          description: Song already exists
+  /api/album/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get an album by ID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  album_id:
+                    type: integer
+                  name:
+                    type: string
+                  genre:
+                    type: string
+                  artist:
+                    type: string
+        '404':
+          description: Album not found
+    put:
+      summary: Update an album by ID
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                genre:
+                  type: string
+                artist:
+                  type: string
+      responses:
+        '200':
+          description: Album updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  album_id:
+                    type: integer
+                  name:
+                    type: string
+                  genre:
+                    type: string
+                  artist:
+                    type: string
+        '400':
+          description: Insufficient data provided
+        '404':
+          description: Album not found
+    delete:
+      summary: Delete an album by ID
+      responses:
+        '200':
+          description: Album deleted successfully
+  /api/album:
+    post:
+      summary: Create a new album
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                genre:
+                  type: string
+                artist:
+                  type: string
+                user_id:
+                  type: string
+      responses:
+        '201':
+          description: Album created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  album_id:
+                    type: integer
+                  name:
+                    type: string
+                  genre:
+                    type: string
+                  artist:
+                    type: string
+        '400':
+          description: Insufficient data provided
+        '409':
+          description: Album already exists
+servers:
+  - url: http://127.0.0.1:5000/
+    variables: {}
